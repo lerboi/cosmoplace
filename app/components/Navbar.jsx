@@ -41,7 +41,7 @@ export default function Navbar(){
                     }
                     )}
                     <div className="md:hidden">
-                        <Link href="/api/auth/signin" className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Sign In</Link>
+                        <Link href="/signInPage" onClick={() => setNav(false)} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Sign In</Link>
                     </div>
                 </div>
             )}

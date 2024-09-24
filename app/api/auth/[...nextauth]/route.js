@@ -1,30 +1,28 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcrypt"
 
 const authOptions = {
     providers: [
         Credentials({
             credentials: {
-                email: {type:"text" ,label:"Email", placeholder:"Your Email"},
-                password: {type:"password", label: "Password", placeholder:"Your Password"}
+                email: {label: "Email", type: "email"},
+                password: {label: "Password", type:"password"}
             },
-            async authorize(credentials, req){
+            async authorize(credentials){
                 let user = null
 
                 //authorize logic
-
-                user = {
-                    email: "leroyzzng@gmail.com",
-                    password: "123"
-                }
                 return user
             }
-        }
-    ) 
-    ]
+        })
+    ],
+    pages: {
+        signIn: "/signInPage"
+    }
 }
 
-export const handler = NextAuth(authOptions)
+const handler = NextAuth(authOptions)
 const GET = handler
 const POST = handler
-export {GET, POST}
+export { GET, POST }
