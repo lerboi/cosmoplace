@@ -50,6 +50,9 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+
+  //custom fields
+  password      String?
 }
 
 model VerificationRequest {

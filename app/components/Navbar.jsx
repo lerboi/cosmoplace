@@ -3,6 +3,7 @@ import Link from "next/link"
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar(){
     const [nav, setNav] = useState(false)
@@ -11,6 +12,7 @@ export default function Navbar(){
         {label: "Bookings", href: "/bookings"},
         {label: "FAQ", href: "/faq"},
     ]
+    const {data: session} = useSession()
 
     return(
         <>
@@ -25,9 +27,15 @@ export default function Navbar(){
                     }
                     )}
                 </ul>
+                {session? 
                 <div className="absolute right-0 top-0 p-3">
-                    <Button><Link href="/api/auth/signin">Sign in</Link></Button>
+                    <Button variant="secondary"><Link href="/api/auth/signin" onClick={() => signOut()}>Logout</Link></Button>
                 </div>
+                 : 
+                <div className="absolute right-0 top-0 p-3">
+                    <Button variant="secondary"><Link href="/api/auth/signin">Login</Link></Button>
+                </div>
+                 }   
             </div>
             <div className="text-white text-2xl mr-4">
                 <RxHamburgerMenu className="md:hidden" onClick={() => setNav(!nav)}/>
@@ -40,9 +48,15 @@ export default function Navbar(){
                         return <Link className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2" key={link.href} href={link.href} onClick={() => setNav(false)}>{link.label}</Link>
                     }
                     )}
+                    {session? 
                     <div className="md:hidden">
-                        <Link href="/signInPage" onClick={() => setNav(false)} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Sign In</Link>
+                        <Link href="/signInPage" onClick={() => signOut()} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Logout</Link>
                     </div>
+                    : 
+                    <div className="md:hidden">
+                        <Link href="/signInPage" onClick={() => setNav(false)} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Login</Link>
+                    </div>}
+                    
                 </div>
             )}
         </div>
