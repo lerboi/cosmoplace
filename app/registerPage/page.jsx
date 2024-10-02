@@ -24,9 +24,12 @@ export default function RegisterPage(){
             })
             if(response.ok){
                 router.push("/signInPage")
-            } else(
-                setError(response.error)
-            )
+            } 
+            else{
+                const data = await response.json()
+                console.log("The error is " + data.error)
+                setError(data.error)
+            }
         }
         catch (err){
             setError(err)

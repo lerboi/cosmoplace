@@ -17,7 +17,7 @@ const authOptions = {
                     const hashedPass = await bcrypt.hash(credentials.password, 10)
                     const checkUser = await prisma.user.findUnique({
                         where: {
-                            email: credentials.email,
+                            email: credentials.email
                         }
                     })
                     if(checkUser){ 
@@ -29,7 +29,7 @@ const authOptions = {
                             return user
                         }
                         else {
-                            throw new Error("Invalid credentials")
+                            throw new Error("Invalid password")
                         }
 
                     } else {

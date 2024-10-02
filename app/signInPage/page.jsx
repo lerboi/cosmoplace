@@ -20,7 +20,7 @@ export default function SignInPage(){
             if(response.error){
                 setError(response.error)
             } else{
-                window.location = "/"
+                window.location.href = "/"
             }
         }
         catch(err){

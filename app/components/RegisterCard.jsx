@@ -23,14 +23,15 @@ export default function RegisterCard({email, password, setEmail, setPassword, er
                             </div>
                             <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" className="bg-slate-400 placeholder-slate-100 rounded-xl p-3 w-[300px] focus:outline-none pl-11 text-slate-200"/>
                         </div>
-                        <div className="mt-3 flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center items-center">
                             {error && (
-                                <div>
-                                    <p>{error}</p>
+                                <div className="mb-2">
+                                    <p className="text-sm text-red-500">{error}</p>
                                 </div>
                             )}
                             <button className="w-[200px] bg-slate-900 text-slate-200 rounded-xl py-3 hover:bg-slate-950 hover:text-slate-100 transition-all ease-in-out delay-[0.3s]">Register</button>
                         </div>
+                        <p className="opacity-50 text-sm relative justify-end hover:opacity-100 hover:cursor-pointer"><Link href="/signInPage">Back</Link></p>
                     </div>
                 </div>
         </div>

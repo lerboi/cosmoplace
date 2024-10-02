@@ -17,18 +17,18 @@ export default function Navbar(){
     return(
         <>
         <div className="bg-slate-950 sticky h-[60px] z-50 items-center flex justify-between">
-            <div id="logo" className="text-slate-100 ml-5">
+            <div id="logo" className="text-slate-100 ml-5 mt-2">
                 <h1><Link href="/">CosmoPlace</Link></h1>
             </div>
             <div className="hidden md:block">
-                <ul className="md:flex"> 
+                <ul className="md:flex mt-2"> 
                     {links.map(link => {
-                        return <li className="md:mx-8 hover:text-white transition-all delay-75" key={link.href}><Link href={link.href}>{link.label}</Link></li>
+                        return <li className="md:mx-8 hover:text-white text-lg transition-all delay-75" key={link.href}><Link href={link.href}>{link.label}</Link></li>
                     }
                     )}
                 </ul>
                 {session? 
-                <div className="absolute right-0 top-0 p-3">
+                <div className="absolute right-0 top-0 p-3 mt-1">
                     <Button variant="secondary"><Link href="/api/auth/signin" onClick={() => signOut()}>Logout</Link></Button>
                 </div>
                  : 
@@ -37,29 +37,30 @@ export default function Navbar(){
                 </div>
                  }   
             </div>
-            <div className="text-white text-2xl mr-4">
-                <RxHamburgerMenu className="md:hidden" onClick={() => setNav(!nav)}/>
+            <div className="text-white text-2xl mr-4 mt-2">
+                <RxHamburgerMenu className="md:hidden hover:cursor-pointer" onClick={() => setNav(!nav)}/>
             </div>
         </div>
-        <div className="transition-all ease-in-out delay-75">
-            {nav && (
-                <div className="bg-slate-950 absolute p-2 w-full">
-                    {links.map(link => {
-                        return <Link className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2" key={link.href} href={link.href} onClick={() => setNav(false)}>{link.label}</Link>
-                    }
-                    )}
-                    {session? 
-                    <div className="md:hidden">
-                        <Link href="/signInPage" onClick={() => signOut()} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Logout</Link>
-                    </div>
-                    : 
-                    <div className="md:hidden">
-                        <Link href="/signInPage" onClick={() => setNav(false)} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Login</Link>
-                    </div>}
-                    
-                </div>
-            )}
+        <div className="bg-slate-950 transition-all ease-in-out delay-75 p-1">
+        {nav && 
+            (links.map(link => {
+                    return (      
+                        <Link className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2" key={link.href} href={link.href} onClick={() => setNav(false)}>{link.label}</Link>
+                    )
+                })
+            )} 
+            {session? 
+            <div className={`${nav? "" : "md:hidden hidden" }`}>
+                <Link href="/signInPage" onClick={() => signOut()} className="ml-6 transition-all delay-[0.1s] text-xl hover:border-b-2 hover:border-slate-400 flex flex-col my-2">Logout</Link>
+            </div>
+            : 
+            <button className={`${nav? "bg-slate-600 hover:bg-slate-500 ml-6 rounded px-3 my-1 transition-all delay-75" : "md:hidden hidden" }`}>
+                <Link href="/signInPage" onClick={() => setNav(false)} className={`transition-all hover:text-slate-50 delay-[0.1s] text-xl flex flex-col my-2`}>Login</Link>
+            </button> 
+            }
         </div>
+        
         </>
     )
 }
+
